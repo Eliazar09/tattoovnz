@@ -38,7 +38,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col overflow-hidden"
+      className="relative min-h-screen flex flex-col overflow-x-hidden"
       style={{ background: '#0A0A0A' }}
     >
       {/* Background video / image */}
@@ -74,9 +74,9 @@ export default function HeroSection() {
 
         {/* ── BIG TITLE ── */}
         <h1
-          className="font-display italic leading-none mb-4 select-none"
+          className="font-display italic leading-none mb-4 select-none w-full px-4"
           style={{
-            fontSize: 'clamp(4.5rem, 16vw, 14rem)',
+            fontSize: 'clamp(4rem, 14vw, 13rem)',
             background: GOLD,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
