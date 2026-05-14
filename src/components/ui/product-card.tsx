@@ -184,7 +184,6 @@ export const ServiceHighlightCard = React.forwardRef<
             <motion.img
               src={imageSrc}
               alt={imageAlt}
-              style={{ transform: "translateZ(50px)" }}
               whileHover={{ scale: 1.08, y: -12, x: 8 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="absolute -right-8 -bottom-8 h-44 w-44 object-cover rounded-2xl pointer-events-none"
