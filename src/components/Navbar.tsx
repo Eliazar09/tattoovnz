@@ -4,10 +4,9 @@ import { Menu, X } from 'lucide-react'
 
 const links = [
   { label: 'Inicio', href: '/' },
-  { label: 'Sobre', href: '/#sobre' },
+  { label: 'Nosotras', href: '/#sobre' },
   { label: 'Servicios', href: '/#servicos' },
-  { label: 'Artista', href: '/#artistas' },
-  { label: 'Galeria', href: '/portfolio' },
+  { label: 'Galería', href: '/#galeria' },
   { label: 'Contacto', href: '/#contato' },
 ]
 
@@ -26,12 +25,12 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 pt-4 pb-2 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-10 lg:px-14 pt-4 pb-2 transition-all duration-300 ${
         scrolled ? 'pt-2' : 'pt-4'
       }`}
     >
       <div
-        className={`rounded-xl px-4 py-3 flex items-center justify-between transition-all duration-300 ${
+        className={`rounded-xl px-5 py-3 flex items-center justify-between transition-all duration-300 ${
           dark
             ? 'glass-dark-solid'
             : scrolled
@@ -42,9 +41,16 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
         {/* Logo */}
         <Link
           to="/"
-          className={`font-display text-2xl tracking-tight ${dark ? 'text-white' : 'text-black'}`}
+          className={`font-display text-xl md:text-2xl italic tracking-tight ${dark ? 'text-white' : 'text-black'}`}
         >
-          RAMSES TATTO
+          <span style={dark ? {
+            background: 'linear-gradient(135deg, #E8D48B 0%, #D4AF37 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          } : {}}>
+            Miami Stylls
+          </span>
         </Link>
 
         {/* Desktop Links */}
@@ -55,7 +61,7 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
                 key={l.label}
                 href={l.href}
                 className={`text-sm font-medium font-body tracking-wide transition-all duration-200 hover:opacity-60 ${
-                  dark ? 'text-white' : 'text-black'
+                  dark ? 'text-white/80' : 'text-black/70'
                 }`}
               >
                 {l.label}
@@ -65,7 +71,7 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
                 key={l.label}
                 to={l.href}
                 className={`text-sm font-medium font-body tracking-wide transition-all duration-200 hover:opacity-60 ${
-                  dark ? 'text-white' : 'text-black'
+                  dark ? 'text-white/80' : 'text-black/70'
                 } ${isActive(l.href) ? 'border-b border-current pb-px' : ''}`}
               >
                 {l.label}
@@ -77,14 +83,15 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
         {/* CTA + Hamburger */}
         <div className="flex items-center gap-3">
           <Link
-            to="/agendamento"
-            className={`hidden md:block text-sm font-medium font-body tracking-wider px-5 py-2 rounded-lg transition-all duration-200 ${
-              dark
-                ? 'bg-white text-black hover:bg-zinc-200'
-                : 'bg-black text-white hover:bg-zinc-800'
-            }`}
+            to="/agendar"
+            className="hidden md:flex items-center gap-1.5 text-xs font-medium font-body tracking-wider px-5 py-2 rounded-lg transition-all duration-200"
+            style={{
+              background: 'linear-gradient(135deg, #C9A961 0%, #D4AF37 100%)',
+              color: '#0A0A0A',
+              boxShadow: '0 2px 10px rgba(212,175,55,0.25)',
+            }}
           >
-            Agendar
+            Agenda tu cita
           </Link>
           <button
             onClick={() => setOpen(!open)}
@@ -105,7 +112,7 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
                 key={l.label}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className={`text-sm font-medium font-body tracking-wide ${dark ? 'text-white' : 'text-black'}`}
+                className={`text-sm font-medium font-body tracking-wide ${dark ? 'text-white/80' : 'text-black/70'}`}
               >
                 {l.label}
               </a>
@@ -114,20 +121,22 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
                 key={l.label}
                 to={l.href}
                 onClick={() => setOpen(false)}
-                className={`text-sm font-medium font-body tracking-wide ${dark ? 'text-white' : 'text-black'}`}
+                className={`text-sm font-medium font-body tracking-wide ${dark ? 'text-white/80' : 'text-black/70'}`}
               >
                 {l.label}
               </Link>
             )
           )}
           <Link
-            to="/agendamento"
+            to="/agendar"
             onClick={() => setOpen(false)}
-            className={`text-sm font-medium font-body tracking-wider px-5 py-2.5 rounded-lg text-center ${
-              dark ? 'bg-white text-black' : 'bg-black text-white'
-            }`}
+            className="text-sm font-semibold font-body tracking-wider px-5 py-2.5 rounded-lg text-center"
+            style={{
+              background: 'linear-gradient(135deg, #C9A961 0%, #D4AF37 100%)',
+              color: '#0A0A0A',
+            }}
           >
-            Agendar Cita
+            Agenda tu cita
           </Link>
         </div>
       )}

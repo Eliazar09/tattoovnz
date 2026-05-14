@@ -6,18 +6,18 @@ import Footer from '../components/Footer'
 import FadeIn from '../components/FadeIn'
 import { searchPhotos, PexelsPhoto } from '../data/pexels'
 
-const styles = ['Todos', 'Realismo', 'Blackwork', 'Tribal', 'Geométrico', 'Acuarela', 'Mandala', 'Fineline']
-const bodyParts = ['Todas las Áreas', 'Brazo', 'Pierna', 'Espalda', 'Pecho', 'Cuello', 'Antebrazo']
+const styles = ['Todos', 'Cejas', 'Labios', 'Ojos', 'Pestañas', 'Faciales', 'Micropigmentación', 'Cursos']
+const bodyParts = ['Todas las Áreas', 'Cejas', 'Labios', 'Ojos', 'Pestañas', 'Rostro', 'Piel']
 
 const styleQueries: Record<string, string> = {
-  Todos: 'tattoo art',
-  Realismo: 'realistic tattoo portrait body',
-  Blackwork: 'blackwork tattoo body',
-  Tribal: 'tribal tattoo body',
-  Geométrico: 'geometric tattoo body',
-  Acuarela: 'watercolor tattoo colorful',
-  Mandala: 'mandala tattoo',
-  Fineline: 'fine line tattoo minimalist',
+  Todos: 'eyebrow micropigmentation beauty woman',
+  Cejas: 'microblading eyebrows close up beauty',
+  Labios: 'lip micropigmentation permanent makeup woman',
+  Ojos: 'eyeliner permanent makeup eyes beauty',
+  Pestañas: 'eyelash extensions beauty woman',
+  Faciales: 'facial treatment beauty spa woman',
+  Micropigmentación: 'micropigmentation permanent makeup beauty',
+  Cursos: 'beauty makeup professional training',
 }
 
 export default function PortfolioPage() {
@@ -31,7 +31,7 @@ export default function PortfolioPage() {
   useEffect(() => {
     setLoading(true)
     setPage(1)
-    searchPhotos(styleQueries[activeStyle] || 'tattoo', 18).then(p => {
+    searchPhotos(styleQueries[activeStyle] || 'beauty micropigmentation', 18).then(p => {
       setPhotos(p)
       setLoading(false)
     })
@@ -39,7 +39,7 @@ export default function PortfolioPage() {
 
   const loadMore = () => {
     setLoading(true)
-    searchPhotos(styleQueries[activeStyle] || 'tattoo', 9).then(more => {
+    searchPhotos(styleQueries[activeStyle] || 'beauty micropigmentation', 9).then(more => {
       setPhotos(prev => [...prev, ...more])
       setPage(p => p + 1)
       setLoading(false)
@@ -59,8 +59,18 @@ export default function PortfolioPage() {
             <ChevronRight size={12} />
             <span className="text-white">Portafolio</span>
           </div>
-          <h1 className="font-display text-3xl sm:text-5xl md:text-7xl text-white tracking-wide">PORTAFOLIO COMPLETO</h1>
-          <p className="text-zinc-400 font-body text-sm mt-3">Cada tatuaje cuenta una historia única</p>
+          <h1
+            className="font-display italic text-3xl sm:text-4xl md:text-6xl"
+            style={{
+              background: 'linear-gradient(135deg, #E8D48B 0%, #D4AF37 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            Portafolio Completo
+          </h1>
+          <p className="text-zinc-400 font-body text-sm mt-3">Cada trabajo es una transformación única</p>
         </div>
       </div>
 
@@ -84,11 +94,12 @@ export default function PortfolioPage() {
               <button
                 key={s}
                 onClick={() => setActiveStyle(s)}
-                className={`px-4 py-1.5 rounded-full text-xs font-body font-medium tracking-wider transition-all ${
+                className="px-4 py-1.5 rounded-full text-xs font-body font-medium tracking-wider transition-all"
+                style={
                   activeStyle === s
-                    ? 'bg-black text-white'
-                    : 'border border-zinc-200 text-zinc-600 hover:border-zinc-400'
-                }`}
+                    ? { background: 'linear-gradient(135deg,#C9A961 0%,#D4AF37 100%)', color: '#0A0A0A' }
+                    : { border: '1px solid #e4e4e7', color: '#71717a' }
+                }
               >
                 {s}
               </button>
@@ -130,14 +141,14 @@ export default function PortfolioPage() {
               >
                 <img
                   src={photo.src.large}
-                  alt={photo.alt || 'Tattoo'}
+                  alt={photo.alt || 'Miami Stylls'}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
                 <div className="overlay absolute inset-0 bg-black/55 flex flex-col items-center justify-center gap-2 p-4">
                   <ZoomIn size={28} className="text-white" />
                   <p className="text-white text-xs font-body font-medium tracking-widest text-center opacity-80">
-                    {activeStyle !== 'Todos' ? activeStyle.toUpperCase() : 'TATUAJE'}
+                    {activeStyle !== 'Todos' ? activeStyle.toUpperCase() : 'MIAMI STYLLS'}
                   </p>
                 </div>
               </div>
@@ -151,7 +162,8 @@ export default function PortfolioPage() {
             <button
               onClick={loadMore}
               disabled={loading}
-              className="border border-black text-black px-10 py-3 rounded-lg font-body text-sm font-medium tracking-wider hover:bg-black hover:text-white transition-all disabled:opacity-50"
+              className="px-10 py-3 rounded-lg font-body text-sm font-medium tracking-wider transition-all disabled:opacity-50"
+              style={{ border: '1px solid rgba(212,175,55,0.4)', color: '#B8960C' }}
             >
               {loading ? 'Cargando...' : 'CARGAR MÁS'}
             </button>
@@ -159,17 +171,35 @@ export default function PortfolioPage() {
         )}
 
         {/* CTA Agendamento */}
-        <div className="mt-20 bg-black rounded-2xl p-10 md:p-14 text-center">
+        <div
+          className="mt-20 rounded-2xl p-10 md:p-14 text-center"
+          style={{ background: '#0A0A0A' }}
+        >
           <p className="text-xs font-body tracking-[0.3em] text-zinc-500 uppercase mb-3">¿Te gustó lo que viste?</p>
-          <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide mb-4">QUIERO UNO ASÍ</h2>
+          <h2
+            className="font-display italic text-3xl md:text-4xl mb-4"
+            style={{
+              background: 'linear-gradient(135deg, #E8D48B 0%, #D4AF37 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            ¡Quiero ese resultado!
+          </h2>
           <p className="text-zinc-400 font-body text-sm max-w-md mx-auto mb-8">
-            ¿Encontraste inspiración? Agenda una consulta y crearemos el tatuaje perfecto para ti.
+            ¿Encontraste inspiración? Agenda tu cita con Ana y realza tu belleza natural.
           </p>
           <Link
-            to="/agendamento"
-            className="inline-block bg-white text-black px-8 py-3 rounded-lg font-body text-sm font-medium tracking-wider hover:bg-zinc-200 transition-colors"
+            to="/agendar"
+            className="inline-block px-8 py-3 rounded-lg font-body text-sm font-semibold tracking-wider transition-all hover:-translate-y-0.5"
+            style={{
+              background: 'linear-gradient(135deg, #C9A961 0%, #D4AF37 100%)',
+              color: '#0A0A0A',
+              boxShadow: '0 4px 18px rgba(212,175,55,0.3)',
+            }}
           >
-            AGENDAR CITA
+            Agenda tu cita
           </Link>
         </div>
       </div>
@@ -199,13 +229,13 @@ export default function PortfolioPage() {
             />
             <div className="mt-4 flex items-center justify-between">
               <div>
-                <p className="text-white font-display text-xl tracking-wider">
-                  {activeStyle !== 'Todos' ? activeStyle : 'Tattoo'}
+                <p className="font-display italic text-xl" style={{ color: '#D4AF37' }}>
+                  {activeStyle !== 'Todos' ? activeStyle : 'Miami Stylls'}
                 </p>
                 <p className="text-zinc-500 text-xs font-body mt-1">Foto por {lightbox.photographer}</p>
               </div>
               <Link
-                to="/agendamento"
+                to="/agendar"
                 className="bg-white text-black px-6 py-2.5 rounded-lg font-body text-sm font-medium tracking-wider hover:bg-zinc-200 transition-colors"
                 onClick={() => setLightbox(null)}
               >

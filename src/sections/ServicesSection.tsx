@@ -1,146 +1,148 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { CalendarCheck, MessageCircle, ChevronRight } from 'lucide-react'
+import { Eye, Heart, Feather, Layers, Sparkles, Smile } from 'lucide-react'
 import FadeIn from '../components/FadeIn'
-import { searchPhotos, PexelsPhoto } from '../data/pexels'
+import { ServiceHighlightCard } from '../components/ui/product-card'
+
+const WA_BASE = 'https://wa.me/584141699512?text=Hola%20Ana%2C%20me%20interesa%20el%20servicio%20de%20'
 
 const services = [
-  { name: 'Mandala', query: 'mandala tattoo' },
-  { name: 'Tribal', query: 'tribal tattoo' },
-  { name: 'Realismo', query: 'realistic tattoo portrait' },
-  { name: 'Blackwork', query: 'blackwork tattoo' },
-  { name: 'Cover-up', query: 'tattoo cover up' },
+  {
+    Icon: Sparkles,
+    category: 'CEJAS',
+    name: 'Micropigmentación',
+    desc: 'Define y diseña tus cejas perfectas con técnica semipermanente de larga duración.',
+    price: '$20',
+    wa: WA_BASE + 'Micropigmentaci%C3%B3n',
+  },
+  {
+    Icon: Feather,
+    category: 'CEJAS',
+    name: 'Microblading',
+    desc: 'Cejas naturales y definidas con microincisiones precisas, trazo a trazo.',
+    price: '$15',
+    wa: WA_BASE + 'Microblading',
+  },
+  {
+    Icon: Layers,
+    category: 'CEJAS',
+    name: 'Microshading',
+    desc: 'Efecto polvo para cejas densas y con relleno uniforme de larga duración.',
+    price: '$25',
+    wa: WA_BASE + 'Microshading',
+  },
+  {
+    Icon: Heart,
+    category: 'LABIOS',
+    name: 'Neutralización de Labios',
+    desc: 'Corrección del tono natural de tus labios con pigmentación especializada.',
+    price: '$20',
+    wa: WA_BASE + 'Neutralizaci%C3%B3n%20de%20Labios',
+  },
+  {
+    Icon: Smile,
+    category: 'LABIOS',
+    name: 'Microlips',
+    desc: 'Delinea y rellena tus labios con colores duraderos y de aspecto natural.',
+    price: '$25',
+    wa: WA_BASE + 'Microlips',
+  },
+  {
+    Icon: Eye,
+    category: 'OJOS',
+    name: 'Delineado de Ojos',
+    desc: 'Intensifica tu mirada con delineado permanente superior o inferior.',
+    price: '$20',
+    wa: WA_BASE + 'Delineado%20de%20Ojos',
+  },
 ]
 
 export default function ServicesSection() {
-  const [photos, setPhotos] = useState<(PexelsPhoto | null)[]>(Array(5).fill(null))
-  const [featured, setFeatured] = useState<PexelsPhoto | null>(null)
-
-  useEffect(() => {
-    services.forEach((s, i) => {
-      searchPhotos(s.query, 3).then(p => {
-        if (p.length > 0) {
-          setPhotos(prev => {
-            const next = [...prev]
-            next[i] = p[0]
-            return next
-          })
-        }
-      })
-    })
-    searchPhotos('realistic tattoo close up', 3).then(p => {
-      if (p.length > 0) setFeatured(p[Math.floor(Math.random() * p.length)])
-    })
-  }, [])
-
   return (
-    <section id="servicos" className="bg-[#F8F8F8] py-14 lg:py-32">
+    <section id="servicos" className="py-16 lg:py-32" style={{ background: '#0A0A0A' }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Title */}
         <FadeIn className="text-center mb-14">
-          <p className="text-xs font-body tracking-[0.3em] text-zinc-400 uppercase mb-3">Lo que hacemos</p>
-          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl tracking-wide mb-3">NUESTROS SERVICIOS</h2>
-          <div className="flex items-center justify-center gap-3 mt-2">
-            <div className="h-px w-12 bg-zinc-300" />
-            <span className="text-zinc-400 text-lg">✦</span>
-            <div className="h-px w-12 bg-zinc-300" />
+          <p className="text-xs font-body tracking-[0.3em] text-zinc-500 uppercase mb-3">Lo que ofrecemos</p>
+          <h2
+            className="font-display italic text-4xl md:text-5xl lg:text-6xl mb-3"
+            style={{
+              background: 'linear-gradient(135deg, #E8D48B 0%, #D4AF37 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            Nuestros Servicios
+          </h2>
+          <div className="flex items-center justify-center gap-3 mt-3">
+            <div className="h-px w-12" style={{ background: 'linear-gradient(90deg, transparent, #D4AF37)' }} />
+            <span style={{ color: '#D4AF37' }} className="text-base">✦</span>
+            <div className="h-px w-12" style={{ background: 'linear-gradient(90deg, #D4AF37, transparent)' }} />
           </div>
+          <p className="text-zinc-500 font-body text-sm mt-4 max-w-md mx-auto">
+            Especialista en micropigmentación, pestañas, faciales, depilación y cursos profesionales.
+          </p>
         </FadeIn>
 
-        {/* Grid 5 services */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
+        {/* Service Cards Grid */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+          style={{ perspective: '1200px' }}
+        >
           {services.map((s, i) => (
-            <FadeIn key={s.name} delay={i * 80}>
-              <Link to="/agendamento" className="gallery-item group relative rounded-xl overflow-hidden cursor-pointer aspect-square bg-zinc-200 block w-40 md:w-48 lg:w-52">
-                {photos[i] ? (
-                  <img
-                    src={photos[i]!.src.medium}
-                    alt={s.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-zinc-200 animate-pulse" />
-                )}
-                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
-                  <span className="text-white font-body text-xs font-semibold tracking-wider">{s.name.toUpperCase()}</span>
-                </div>
-                <div className="overlay absolute inset-0 bg-black/70 flex flex-col items-center justify-center gap-2 p-3">
-                  <span className="text-white font-display text-xl tracking-wider">{s.name}</span>
-                  <span className="text-white/70 font-body text-xs tracking-widest border border-white/30 px-3 py-1 rounded-full">Agendar</span>
-                </div>
-              </Link>
+            <FadeIn key={s.name} delay={i * 70}>
+              <ServiceHighlightCard
+                categoryIcon={<s.Icon size={18} />}
+                category={s.category}
+                title={s.name}
+                description={s.desc}
+                price={s.price}
+                href={s.wa}
+              />
             </FadeIn>
           ))}
         </div>
 
-        {/* CTA strip */}
+        {/* Bottom CTA */}
         <FadeIn>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 py-6 border-y border-zinc-200">
-            <Link
-              to="/agendamento"
-              className="flex items-center gap-2 bg-black text-white px-7 py-3 rounded-lg font-body text-sm font-medium tracking-wider hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center"
+          <div
+            className="rounded-2xl p-8 md:p-10 text-center"
+            style={{
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid rgba(212,175,55,0.15)',
+            }}
+          >
+            <p className="text-xs font-body tracking-[0.3em] text-zinc-500 uppercase mb-3">¿Tienes dudas?</p>
+            <h3
+              className="font-display italic text-3xl md:text-4xl mb-3"
+              style={{
+                background: 'linear-gradient(135deg, #E8D48B 0%, #D4AF37 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
             >
-              <CalendarCheck size={16} />
-              AGENDAR CITA
-            </Link>
+              Consulta gratuita por WhatsApp
+            </h3>
+            <p className="text-zinc-500 font-body text-sm max-w-md mx-auto mb-6">
+              Escríbele a Ana directamente y recibe asesoría personalizada sobre el servicio ideal para ti.
+            </p>
             <a
-              href="https://wa.me/584241862505?text=Hola!%20Me%20gustar%C3%ADa%20solicitar%20un%20presupuesto%20para%20un%20tatuaje."
+              href="https://wa.me/584141699512?text=Hola%20Ana%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Miami%20Stylls"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-black text-black px-7 py-3 rounded-lg font-body text-sm font-medium tracking-wider hover:bg-black hover:text-white transition-all w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-body text-sm font-semibold tracking-wider transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                background: 'linear-gradient(135deg, #C9A961 0%, #D4AF37 100%)',
+                color: '#0A0A0A',
+                boxShadow: '0 4px 18px rgba(212,175,55,0.35)',
+              }}
             >
-              <MessageCircle size={16} />
-              SOLICITAR PRESUPUESTO
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.557 4.12 1.529 5.852L0 24l6.335-1.51A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.784 9.784 0 01-5.003-1.374l-.36-.213-3.76.896.957-3.659-.234-.376A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+              </svg>
+              Consultar ahora
             </a>
-          </div>
-        </FadeIn>
-
-        {/* Featured – Realistic */}
-        <FadeIn>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white rounded-2xl overflow-hidden shadow-sm">
-            <div className="h-72 lg:h-96 bg-zinc-100 overflow-hidden">
-              {featured ? (
-                <img
-                  src={featured.src.large}
-                  alt="Tatuagem Realista"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="w-full h-full bg-zinc-100 animate-pulse" />
-              )}
-            </div>
-            <div className="p-6 md:p-8 lg:p-12">
-              <p className="text-xs font-body tracking-[0.3em] text-zinc-400 uppercase mb-3">Destacado</p>
-              <h3 className="font-display text-4xl md:text-5xl tracking-wide mb-4">
-                TATUAJES REALISTAS
-              </h3>
-              <p className="text-zinc-500 font-body text-sm leading-relaxed mb-6">
-                Nuestra especialidad. Transformamos fotografías e ideas en obras de arte permanentes en la piel con impresionante fidelidad de detalles, texturas y sombreados.
-              </p>
-              <p className="text-zinc-500 font-body text-sm leading-relaxed mb-8">
-                Cada trazo es ejecutado cuidadosamente, garantizando resultados que sorprenden y emocionan.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  to="/agendamento"
-                  className="flex items-center gap-2 bg-black text-white px-7 py-2.5 rounded-lg font-body text-sm font-medium tracking-wider hover:bg-zinc-800 transition-all duration-300"
-                >
-                  <CalendarCheck size={15} />
-                  AGENDAR
-                </Link>
-                <a
-                  href="https://wa.me/584241862505?text=Hola!%20Tengo%20inter%C3%A9s%20en%20un%20tatuaje%20realista.%20%C2%BFMe%20puedes%20dar%20un%20presupuesto%3F"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 border border-black text-black px-7 py-2.5 rounded-lg font-body text-sm font-medium tracking-wider hover:bg-black hover:text-white transition-all duration-300"
-                >
-                  <MessageCircle size={15} />
-                  PRESUPUESTO
-                </a>
-              </div>
-            </div>
           </div>
         </FadeIn>
       </div>

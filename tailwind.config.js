@@ -7,22 +7,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Bebas Neue', 'sans-serif'],
-        body: ['Montserrat', 'sans-serif'],
+        display: ['Playfair Display', 'serif'],
+        body: ['Poppins', 'sans-serif'],
       },
       colors: {
-        ink: {
-          50: '#f5f5f5',
-          100: '#e0e0e0',
-          200: '#cccccc',
-          300: '#999999',
-          400: '#666666',
-          500: '#3d3d3d',
-          600: '#2d2d2d',
-          700: '#1a1a1a',
-          800: '#0d0d0d',
-          900: '#000000',
-        }
+        gold: {
+          light: '#E8D48B',
+          DEFAULT: '#D4AF37',
+          warm: '#C9A961',
+          dark: '#B8960C',
+        },
+        silver: '#C0C0C0',
+        cream: '#FAFAFA',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease forwards',

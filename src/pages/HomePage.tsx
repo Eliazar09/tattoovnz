@@ -6,7 +6,6 @@ import ArtistsSection from '../sections/ArtistsSection'
 import GallerySection from '../sections/GallerySection'
 import TestimonialsSection from '../sections/TestimonialsSection'
 import InstagramSection from '../sections/InstagramSection'
-import NewsletterSection from '../sections/NewsletterSection'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 
@@ -23,8 +22,7 @@ export default function HomePage() {
       <GallerySection />
       <TestimonialsSection />
       <InstagramSection />
-      <NewsletterSection />
-      <Footer />
+<Footer />
     </main>
     </>
   )
